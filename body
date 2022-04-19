@@ -1,0 +1,52 @@
+import random
+from telebot import types
+import telebot
+
+bot = telebot.TeleBot('5271490601:AAFhpRSWLetHBysjghjdttDT-ZLR4yNoGOs')
+
+@bot.message_handler(commands=["start"])
+def start(message, res=False):
+    bot.send_message(message.chat.id, 'Хачу рандомить', parse_mode='html')
+
+@bot.message_handler(commands=["dice"])
+def dice(message):
+    bot.send_dice(message.chat.id)
+
+@bot.message_handler(commands=['roll'])
+def roll(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    d4 = types.KeyboardButton('d4')
+    d6 = types.KeyboardButton('d6')
+    d8 = types.KeyboardButton('d8')
+    d10 = types.KeyboardButton('d10')
+    d12 = types.KeyboardButton('d12')
+    d20 = types.KeyboardButton('d20')
+    markup.add(d4, d6, d8, d10, d12, d20)
+    bot.send_message(message.chat.id, 'Выбери кубас', reply_markup=markup)
+
+
+@bot.message_handler()
+def get_user_text(message):
+    if message.text == "d12":
+        bot.send_message(message.chat.id, f'Результат: {random.randint(1, 12)}', parse_mode='html')
+    elif message.text == "d4":
+        bot.send_message(message.chat.id, f'Результат: {random.randint(1, 4)}', parse_mode='html')
+    elif message.text == "d6":
+        bot.send_message(message.chat.id, f'Результат: {random.randint(1, 6)}', parse_mode='html')
+    elif message.text == "d8":
+        bot.send_message(message.chat.id, f'Результат: {random.randint(1, 8)}', parse_mode='html')
+    elif message.text == "d10":
+        bot.send_message(message.chat.id, f'Результат: {random.randint(1, 10)}', parse_mode='html')
+    elif message.text == "d20":
+        bot.send_message(message.chat.id, f'Результат: {random.randint(1, 20)}', parse_mode='html')
+
+@bot.message_handler(commands=["d_twelve"])
+def d_twelve(message):
+    bot.send_message(message.chat.id, f'{random.randint(1, 12)}', parse_mode='html')
+
+
+#@bot.message_handler(content_types=['text'])
+#def handle_text(message):
+#    bot.send_message(message.chat.id, 'Повторяю, ' + message.text)
+
+bot.polling(non_stop=True)
