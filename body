@@ -8,11 +8,11 @@ number = 8    #переменная, которая используется д�
 
 @bot.message_handler(commands=["start"])
 def start(message, res=False):
-    """Команда, просто присылает в чат смайлик кубика
-    """
     bot.send_message(message.chat.id, 'Хачу рандомить', parse_mode='html')
 
 @bot.message_handler(commands=["dice"])
+    """Команда, просто присылает в чат смайлик кубика
+    """
 def dice(message):
     bot.send_dice(message.chat.id)
 
