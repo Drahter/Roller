@@ -8,7 +8,7 @@ number = 8
 
 @bot.message_handler(commands=["start"])
 def start(message, res=False):
-    bot.send_message(message.chat.id, 'Хачу рандомить', parse_mode='html')
+    bot.send_message(message.chat.id, 'Проклятые кубы! Я помер, чтобы меня заставляли их бросать?!', parse_mode='html')
 
 @bot.message_handler(commands=["dice"])
 def dice(message):
@@ -29,12 +29,7 @@ def roll(message):
     Kr6 = types.KeyboardButton('Kr6')
     Kr8 = types.KeyboardButton('Kr8')
     markup.add(D4, D6, D8, D10, D12, D20, Kr6, Kr8)
-    bot.send_message(message.chat.id, 'Выбери кубас', reply_markup=markup, disable_notification=True)
-
-@bot.message_handler(commands=['d_twelve'])
-def d_twelve(message):
-    """Команда, ролит Д12, была просто пробой пера"""
-    bot.send_message(message.chat.id, f'{random.randint(1, 12)}', parse_mode='html', disable_notification=True)
+    bot.send_message(message.chat.id, 'Выбери проклятый кубас', reply_markup=markup, disable_notification=True)
 
 @bot.message_handler(content_types=['text'])
 def get_user_text(message):
@@ -67,12 +62,12 @@ def get_user_text(message):
                          disable_notification=True)
     elif message.text == "Kr6":
         get_numbers_six_sorc()
-        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, колдун!',
-                         disable_notification=True)
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, '
+                                          f'проклятый колдун!', disable_notification=True)
     elif message.text == "Kr8":
         get_numbers_eight_sorc()
-        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, колдун!',
-                         disable_notification=True)
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, '
+                                          f'проклятый колдун!', disable_notification=True)
     elif message.text == '/dices':
         bot.send_message(message.chat.id, 'Сколько нужно бросать?', disable_notification=True)
         bot.register_next_step_handler(message, get_dices)
@@ -83,10 +78,12 @@ def get_dices(message):
     try:
         number = int(message.text)
     except Exception:
-        bot.send_message(message.chat.id, 'Одну цифру мне дай!', disable_notification=True)
+        bot.send_message(message.chat.id, 'Одну цифру мне дай, проклятый!', disable_notification=True)
     bot.send_message(message.chat.id, f'Хорошечно, будет {number}', disable_notification=True)
 
 list_of_numbers = []
+a1 = (2, 2, 3, 4, 5, 6)
+a2 = (2, 2, 3, 4, 5, 6, 7, 8)
 
 def get_numbers_four():
     global number
@@ -121,17 +118,12 @@ def get_numbers_twenty():
 def get_numbers_six_sorc():
     global number
     list_of_numbers.clear()
-    answers = [random.randint(2, 6) for each in range(number)]
+    answers = [random.choice(a1) for each in range(number)]
     list_of_numbers.extend(answers)
 def get_numbers_eight_sorc():
     global number
     list_of_numbers.clear()
-    answers = [random.randint(2, 8) for each in range(number)]
+    answers = [random.choice(a2) for each in range(number)]
     list_of_numbers.extend(answers)
-
-
-#@bot.message_handler()
-#def get_number(message, x):
-#    if message.text ==
 
 bot.polling(non_stop=True) #Бот не выключается сам
