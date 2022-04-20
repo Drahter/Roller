@@ -4,15 +4,13 @@ import telebot
 
 bot = telebot.TeleBot('5271490601:AAFhpRSWLetHBysjghjdttDT-ZLR4yNoGOs')
 
-number = 8    #переменная, которая используется для определения кольчества бросков, по умолчанию дла фаербола 3 уровнем
+number = 8
 
 @bot.message_handler(commands=["start"])
 def start(message, res=False):
     bot.send_message(message.chat.id, 'Хачу рандомить', parse_mode='html')
 
 @bot.message_handler(commands=["dice"])
-    """Команда, просто присылает в чат смайлик кубика
-    """
 def dice(message):
     bot.send_dice(message.chat.id)
 
@@ -66,6 +64,7 @@ def get_user_text(message):
 
 def get_dices(message):
     """Получает сообщение, берет из него целое число и присваивает number это значение"""
+    global number
     try:
         number = int(message.text)
     except Exception:
