@@ -4,10 +4,12 @@ import telebot
 
 bot = telebot.TeleBot('5271490601:AAFhpRSWLetHBysjghjdttDT-ZLR4yNoGOs')
 
-number = 8
+number = 8    #переменная, которая используется для определения кольчества бросков, по умолчанию дла фаербола 3 уровнем
 
 @bot.message_handler(commands=["start"])
 def start(message, res=False):
+    """Команда, просто присылает в чат смайлик кубика
+    """
     bot.send_message(message.chat.id, 'Хачу рандомить', parse_mode='html')
 
 @bot.message_handler(commands=["dice"])
@@ -16,6 +18,9 @@ def dice(message):
 
 @bot.message_handler(commands=["roll"])
 def roll(message):
+    """Команда, вызывает меню с кнопками в области ввода текста, кнопки пишут в чат фразы,
+       ожидаемые get_user_text'ом
+    """
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     D4 = types.KeyboardButton('D4')
     D6 = types.KeyboardButton('D6')
@@ -28,10 +33,14 @@ def roll(message):
 
 @bot.message_handler(commands=['d_twelve'])
 def d_twelve(message):
+    """Команда, ролит Д12, была просто пробой пера"""
     bot.send_message(message.chat.id, f'{random.randint(1, 12)}', parse_mode='html', disable_notification=True)
 
 @bot.message_handler(content_types=['text'])
 def get_user_text(message):
+    """НЕ комманда, смотрит на сообщения в чате, пишет ответ на ключи, в данный момент еще и рандомит, и считает,
+       но никогда этого не хотела
+    """
     global number
     if message.text == "D12":
         bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 12) for each in range(number)]}, а всего {sum([random.randint(1, 12) for each in range(number)])}',
@@ -56,21 +65,26 @@ def get_user_text(message):
         bot.register_next_step_handler(message, get_dices)
 
 def get_dices(message):
+    """Получает сообщение, берет из него целое число и присваивает number это значение"""
     try:
         number = int(message.text)
     except Exception:
         bot.send_message(message.chat.id, 'Одну цифру мне дай!', disable_notification=True)
     bot.send_message(message.chat.id, f'Хорошечно, будет {number}', disable_notification=True)
 
-list_four = [random.randint(1,4) for each in range(number)]
-list_six = [random.randint(1, 6) for each in range(number)]
+
+
+list_four = [random.randint(1,4) for each in range(number)]      #Останки былой роскоши, попытка сделать листы для
+list_six = [random.randint(1, 6) for each in range(number)]      #подсчетов, разбилась об необходимость ролить все заново
 list_eight = [random.randint(1, 8) for each in range(number)]
 list_ten = [random.randint(1, 10) for each in range(number)]
 list_twelve = [random.randint(1, 12) for each in range(number)]
 list_twenty = [random.randint(1, 20) for each in range(number)]
 
+
+
 #@bot.message_handler()
 #def get_number(message, x):
 #    if message.text ==
 
-bot.polling(non_stop=True)
+bot.polling(non_stop=True) #Бот не выключается сам
