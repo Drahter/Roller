@@ -69,8 +69,6 @@ list_ten = [random.randint(1, 10) for each in range(number)]
 list_twelve = [random.randint(1, 12) for each in range(number)]
 list_twenty = [random.randint(1, 20) for each in range(number)]
 
-#создать массив единиц?A = [1]*100
-
 #@bot.message_handler()
 #def get_number(message, x):
 #    if message.text ==
