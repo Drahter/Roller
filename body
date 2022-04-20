@@ -26,7 +26,9 @@ def roll(message):
     D10 = types.KeyboardButton('D10')
     D12 = types.KeyboardButton('D12')
     D20 = types.KeyboardButton('D20')
-    markup.add(D4, D6, D8, D10, D12, D20)
+    Kr6 = types.KeyboardButton('Kr6')
+    Kr8 = types.KeyboardButton('Kr8')
+    markup.add(D4, D6, D8, D10, D12, D20, Kr6, Kr8)
     bot.send_message(message.chat.id, 'Выбери кубас', reply_markup=markup, disable_notification=True)
 
 @bot.message_handler(commands=['d_twelve'])
@@ -36,27 +38,40 @@ def d_twelve(message):
 
 @bot.message_handler(content_types=['text'])
 def get_user_text(message):
-    """НЕ комманда, смотрит на сообщения в чате, пишет ответ на ключи, в данный момент еще и рандомит, и считает,
-       но никогда этого не хотела
+    """НЕ комманда, смотрит на сообщения в чате, вызывает функцию get_numbers, пишет ответ на ключи
     """
     global number
     if message.text == "D12":
-        bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 12) for each in range(number)]}, а всего {sum([random.randint(1, 12) for each in range(number)])}',
+        get_numbers_twelve()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
                          disable_notification=True)
     elif message.text == "D4":
-        bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 4) for each in range(number)]}, а всего {sum([random.randint(1, 4) for each in range(number)])}',
+        get_numbers_four()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
                          disable_notification=True)
     elif message.text == "D6":
-        bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 6) for each in range(number)]}, а всего {sum([random.randint(1, 6) for each in range(number)])}',
+        get_numbers_six()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
                          disable_notification=True)
     elif message.text == "D8":
-        bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 8) for each in range(number)]}, а всего {sum([random.randint(1, 8) for each in range(number)])}',
+        get_numbers_eight()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
                          disable_notification=True)
     elif message.text == "D10":
-        bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 10) for each in range(number)]}, а всего {sum([random.randint(1, 10) for each in range(number)])}',
+        get_numbers_ten()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
                          disable_notification=True)
     elif message.text == "D20":
-        bot.send_message(message.chat.id, f'Результат: {[random.randint(1, 20) for each in range(number)]}, а всего {sum([random.randint(1, 20) for each in range(number)])}',
+        get_numbers_twenty()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
+                         disable_notification=True)
+    elif message.text == "Kr6":
+        get_numbers_six_sorc()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
+                         disable_notification=True)
+    elif message.text == "Kr8":
+        get_numbers_eight_sorc()
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
                          disable_notification=True)
     elif message.text == '/dices':
         bot.send_message(message.chat.id, 'Сколько нужно бросать?', disable_notification=True)
@@ -71,15 +86,48 @@ def get_dices(message):
         bot.send_message(message.chat.id, 'Одну цифру мне дай!', disable_notification=True)
     bot.send_message(message.chat.id, f'Хорошечно, будет {number}', disable_notification=True)
 
+list_of_numbers = []
 
-
-list_four = [random.randint(1,4) for each in range(number)]      #Останки былой роскоши, попытка сделать листы для
-list_six = [random.randint(1, 6) for each in range(number)]      #подсчетов, разбилась об необходимость ролить все заново
-list_eight = [random.randint(1, 8) for each in range(number)]
-list_ten = [random.randint(1, 10) for each in range(number)]
-list_twelve = [random.randint(1, 12) for each in range(number)]
-list_twenty = [random.randint(1, 20) for each in range(number)]
-
+def get_numbers_four():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(1, 4) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_six():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(1, 6) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_eight():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(1, 8) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_ten():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(1, 10) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_twelve():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(1, 12) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_twenty():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(1, 20) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_six_sorc():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(2, 6) for each in range(number)]
+    list_of_numbers.extend(answers)
+def get_numbers_eight_sorc():
+    global number
+    list_of_numbers.clear()
+    answers = [random.randint(2, 8) for each in range(number)]
+    list_of_numbers.extend(answers)
 
 
 #@bot.message_handler()
