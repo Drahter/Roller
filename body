@@ -67,11 +67,11 @@ def get_user_text(message):
                          disable_notification=True)
     elif message.text == "Kr6":
         get_numbers_six_sorc()
-        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, колдун!',
                          disable_notification=True)
     elif message.text == "Kr8":
         get_numbers_eight_sorc()
-        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}',
+        bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, колдун!',
                          disable_notification=True)
     elif message.text == '/dices':
         bot.send_message(message.chat.id, 'Сколько нужно бросать?', disable_notification=True)
