@@ -2,13 +2,13 @@ import random
 from telebot import types
 import telebot
 
-bot = telebot.TeleBot('5271490601:AAFhpRSWLetHBysjghjdttDT-ZLR4yNoGOs')
+bot = telebot.TeleBot('____________________________________')
 
 number = 8
 
 @bot.message_handler(commands=["start"])
 def start(message, res=False):
-    bot.send_message(message.chat.id, 'Проклятые кубы! Я помер, чтобы меня заставляли их бросать?!', parse_mode='html')
+    bot.send_message(message.chat.id, 'Бот для бросков игральных костей', parse_mode='html')
 
 @bot.message_handler(commands=["dice"])
 def dice(message):
@@ -29,7 +29,7 @@ def roll(message):
     Kr6 = types.KeyboardButton('Kr6')
     Kr8 = types.KeyboardButton('Kr8')
     markup.add(D4, D6, D8, D10, D12, D20, Kr6, Kr8)
-    bot.send_message(message.chat.id, 'Выбери проклятый кубас', reply_markup=markup, disable_notification=True)
+    bot.send_message(message.chat.id, 'Выбери значение грани:', reply_markup=markup, disable_notification=True)
 
 @bot.message_handler(content_types=['text'])
 def get_user_text(message):
@@ -63,11 +63,11 @@ def get_user_text(message):
     elif message.text == "Kr6":
         get_numbers_six_sorc()
         bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, '
-                                          f'проклятый колдун!', disable_notification=True)
+                                          f'колдун!', disable_notification=True)
     elif message.text == "Kr8":
         get_numbers_eight_sorc()
         bot.send_message(message.chat.id, f'Результат: {list_of_numbers}, а всего {sum(list_of_numbers)}, '
-                                          f'проклятый колдун!', disable_notification=True)
+                                          f'колдун!', disable_notification=True)
     elif message.text == '/dices':
         bot.send_message(message.chat.id, 'Сколько нужно бросать?', disable_notification=True)
         bot.register_next_step_handler(message, get_dices)
@@ -78,8 +78,8 @@ def get_dices(message):
     try:
         number = int(message.text)
     except Exception:
-        bot.send_message(message.chat.id, 'Одну цифру мне дай, проклятый!', disable_notification=True)
-    bot.send_message(message.chat.id, f'Хорошечно, будет {number}', disable_notification=True)
+        bot.send_message(message.chat.id, 'Нужно ввести одну цифру!', disable_notification=True)
+    bot.send_message(message.chat.id, f'Хорошо, будет {number}', disable_notification=True)
 
 list_of_numbers = []
 a1 = (2, 2, 3, 4, 5, 6)
